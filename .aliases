@@ -1,19 +1,131 @@
 alias nah="git reset --hard && git clean -df"
+alias fgco="fzf-git-checkout"
 alias gcleanup='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gcdev='git checkout development'
+alias gpsupd='git push --set-upstream origin $(git_current_branch) -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch'
 alias vim="mvim"
 alias weer='curl -s wttr.in/Haarlem | sed -n "1,7p"'
 alias weerbericht='curl -s wttr.in/Haarlem'
 alias mssql='mssql -s localhost -u SA -p Thijsthijs12'
-alias regiservice='docker start 05c333e98eb6'
+alias regiservice='docker start 6d152db70915'
 alias ava='node_modules/.bin/ava'
+alias cypress='node_modules/.bin/cypress'
 alias extra='cd ~/Workspace/adsysco/regiextranet'
 alias sextra='cd ~/Workspace/adsysco/regiextranet && subl .'
 alias art='php artisan'
 alias artisan='php artisan'
+alias artcc='php artisan cache:clear'
 alias phpunitci='phpunit --testsuite="CI Tests"'
+alias phpunitcis='phpus --order-by=defects --stop-on-defect --testsuite="CI Tests"'
+alias phpunits='phpus --order-by=defects --stop-on-defect'
+alias pest='./vendor/bin/pest'
 alias codecept='./vendor/bin/codecept'
 alias npw='npm run watch'
+alias npt='npm run test'
 alias brewstop='sudo brew services stop --all'
 alias brewstart='sudo brew services start --all'
 alias brewrestart='brewstop && brewstart'
-alias phperror='tail -f /Users/thijs/.valet/Log/fpm-php.www.log'
+alias phperror='tail -f /Users/thijs/.config/valet/Log/nginx-error.log'
+alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
+alias piet='vim .env.demo-extranetpg.adsysco.nl'
+alias ward='vim .env.demo-extranetwv.adsysco.nl'
+alias cat='bat'
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias top="sudo htop" # alias top and fix high sierra bug
+alias mux="tmuxinator"
+alias muxs="mux start --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING"
+alias phpd="php -dxdebug.remote_autostart"
+alias ccc="composer check-codestyle"
+alias ci="composer install"
+alias ngroks="/Applications/ngrok"
+alias ngroke="ngroks http -region=eu -subdomain=extranet -host-header=regiextranet.localhost 80"
+alias ngrokw="ngroks http -region=eu -subdomain=regiweb -host-header=regiweb2.localhost 80"
+alias muxw2="muxs regiweb2"
+alias muxw="muxs regiweb"
+alias muxe="muxs extranet"
+alias spoon="/opt/data-integration/spoon.sh"
+alias yy="yarn && yarn run dev"
+alias sail='bash vendor/bin/sail'
+
+alias xdebug-disable='echo "" > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
+alias xdebug-restore='cat /usr/local/etc/php/7.3/conf.d/xdebug.ini.bak > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
+
+function phpunitc {
+	xdebug-disable
+	./vendor/bin/phpunit --testsuite="CI Tests" "$@"
+	xdebug-restore
+}
+
+function phpus {
+	xdebug-disable
+	./vendor/bin/phpunit  --order-by=defects --stop-on-defect "$@"
+	xdebug-restore
+}
+
+function phplint {
+  php vendor/bin/parallel-lint --exclude vendor --exclude _ide_helper.php .
+  php vendor/bin/phpmd app/ text phpmd.xml
+  php vendor/bin/phpcs --standard=psr2 app
+}
+
+function zipdiffmaster {
+  git diff --name-only $1 master | zip dest.zip -@
+}
+
+function zipdiffdev {
+  CURRENT_BRANCH=$(git branch --show-current)
+  git diff --name-only ${CURRENT_BRANCH} $(git merge-base ${CURRENT_BRANCH} origin/development) | zip ${CURRENT_BRANCH}.zip -@
+}
+
+function zipdiff {
+  git diff --name-only HEAD~$1 HEAD | zip dest.zip -@
+}
+
+function zipdifflast {
+  git diff --name-only HEAD HEAD^1 | zip dest.zip -@
+}
+
+function hotfix {
+  echo "lets fix it like it's hot 🔥🔥🔥"
+
+  BRANCH_MASTER=$(git branch --show-current)
+  BRANCH_DEV=${BRANCH_MASTER}-dev
+
+  git push --set-upstream origin ${BRANCH_MASTER} -o merge_request.create -o merge_request.target=master -o merge_request.remove_source_branch
+  rll
+  git checkout development
+  git pull
+  git checkout -b ${BRANCH_DEV}
+  git cherry-pick $(git rev-parse ${BRANCH_MASTER})
+  git push --set-upstream origin ${BRANCH_DEV} -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch
+
+  echo "All done, we're cool now 😎"
+}
+
+function php80 {
+  export PATH="/usr/local/opt/php@8.0/bin:$PATH"
+  valet use php@8.0 --force
+}
+
+function clc {
+    COLOR_GREEN="\033[0;32m"
+    COLOR_RESET="\033[0m"
+    [[ -z $1 ]] && BRANCH=$(git rev-parse --abbrev-ref HEAD) || BRANCH=$1
+    LAST_COMMIT_SHA=$(git rev-parse $BRANCH | tail -n 1)
+    echo "$LAST_COMMIT_SHA" | tr -d '\n' | pbcopy
+    echo "Copied ${COLOR_GREEN}${LAST_COMMIT_SHA} ${COLOR_RESET}from ${BRANCH}."
+}
+
+alias todo="nvim ~/Dropbox/notes/@adsysco\ todo.txt"
+
+function rll {
+ zipdifflast
+ TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)
+ mkdir ${TARGET_DIR}
+ mv dest.zip ${TARGET_DIR}
+ cd ${TARGET_DIR}
+ unzip dest.zip
+ rm dest.zip
+ cd -
+}
