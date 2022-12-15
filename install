@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+DOTFILES=$(cd $(dirname "{BASH_SOURCE[0]}") && pwd)
+
+ln -sf $DOTFILES/zsh/.zshrc $HOME/.zshrc
+
+ln -sf $DOTFILES/zsh/.fzf.zsh $HOME/.fzf.zsh
+
+rm $HOME/.aliases
+ln -s $DOTFILES/.aliases $HOME/.aliases
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
