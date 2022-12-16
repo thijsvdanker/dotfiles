@@ -114,11 +114,6 @@ function php80 {
   valet use php@8.0 --force
 }
 
-function php74 {
-  export PATH="/usr/local/opt/php@7.4/bin:$PATH"
-  valet use php@7.4 --force
-}
-
 function clc {
     COLOR_GREEN="\033[0;32m"
     COLOR_RESET="\033[0m"
@@ -130,17 +125,12 @@ function clc {
 
 alias todo="nvim ~/Dropbox/notes/@adsysco\ todo.txt"
 
-function vr {
-	./vessel restore $1 devWeb2
-	./vessel reset-passwords devWeb2
-}
-
 function rll {
  zipdifflast
- target_dir=~/documents/adsysco/builds/2\ -\ releases/$(git_current_branch)
- mkdir ${target_dir}
- mv dest.zip ${target_dir}
- cd ${target_dir}
+ TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)
+ mkdir ${TARGET_DIR}
+ mv dest.zip ${TARGET_DIR}
+ cd ${TARGET_DIR}
  unzip dest.zip
  rm dest.zip
  cd -
