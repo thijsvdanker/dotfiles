@@ -4,32 +4,25 @@ alias gcleanup='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git br
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
 alias gcdev='git checkout development'
 alias gpsupd='git push --set-upstream origin $(git_current_branch) -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch'
-alias vim="mvim"
+alias vim="nvim"
 alias weer='curl -s wttr.in/Haarlem | sed -n "1,7p"'
 alias weerbericht='curl -s wttr.in/Haarlem'
 alias mssql='mssql -s localhost -u SA -p Thijsthijs12'
 alias regiservice='docker start 6d152db70915'
 alias ava='node_modules/.bin/ava'
 alias cypress='node_modules/.bin/cypress'
-alias extra='cd ~/Workspace/adsysco/regiextranet'
-alias sextra='cd ~/Workspace/adsysco/regiextranet && subl .'
-alias art='php artisan'
-alias artisan='php artisan'
-alias artcc='php artisan cache:clear'
+
+alias a='php artisan'
 alias phpunitci='phpunit --testsuite="CI Tests"'
 alias phpunitcis='phpus --order-by=defects --stop-on-defect --testsuite="CI Tests"'
 alias phpunits='phpus --order-by=defects --stop-on-defect'
 alias pest='./vendor/bin/pest'
-alias codecept='./vendor/bin/codecept'
-alias npw='npm run watch'
-alias npt='npm run test'
+
 alias brewstop='sudo brew services stop --all'
 alias brewstart='sudo brew services start --all'
 alias brewrestart='brewstop && brewstart'
 alias phperror='tail -f /Users/thijs/.config/valet/Log/nginx-error.log'
 alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
-alias piet='vim .env.demo-extranetpg.adsysco.nl'
-alias ward='vim .env.demo-extranetwv.adsysco.nl'
 alias cat='bat'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias top="sudo htop" # alias top and fix high sierra bug

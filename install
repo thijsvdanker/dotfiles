@@ -2,12 +2,26 @@
 
 DOTFILES=$(cd $(dirname "{BASH_SOURCE[0]}") && pwd)
 
+ln -sf $DOTFILES $HOME/.dotfiles
+
 ln -sf $DOTFILES/zsh/.zshrc $HOME/.zshrc
 
-ln -sf $DOTFILES/zsh/.fzf.zsh $HOME/.fzf.zsh
+rm -rf $HOME/.fzf.zsh
+ln -sf $DOTFILES/zsh/fzf.zsh $HOME/.fzf.zsh
 
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty $HOME/.config/kitty
+
+rm -rf $HOME/.tmux.conf
+ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+
+mkdir -p $HOME/.local/bin
+
+rm -rf $HOME/.local/bin/t
+ln -s $DOTFILES/scripts/t $HOME/.local/bin/t
+
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/nvim $HOME/.config/nvim
 
 rm $HOME/.aliases
 ln -s $DOTFILES/.aliases $HOME/.aliases
