@@ -6,6 +6,9 @@ ln -sf $DOTFILES/zsh/.zshrc $HOME/.zshrc
 
 ln -sf $DOTFILES/zsh/.fzf.zsh $HOME/.fzf.zsh
 
+rm -rf $HOME/.config/kitty
+ln -s $DOTFILES/kitty $HOME/.config/kitty
+
 rm $HOME/.aliases
 ln -s $DOTFILES/.aliases $HOME/.aliases
 
