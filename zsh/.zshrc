@@ -131,4 +131,3 @@ export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 
 export PATH="$PATH:/Users/thijs/.bin"
-export OPENAI_API_KEY="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"
