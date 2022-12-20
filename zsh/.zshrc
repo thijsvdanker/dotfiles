@@ -1,3 +1,6 @@
+#cat $HOME/.banner | lolcat
+#cat $HOME/.tagline
+
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="cobalt2"
@@ -24,9 +27,6 @@ export XDEBUG_CONFIG="idekey=VSCODE"
 export EDITOR=vim
 export GIT_EDITOR=vim
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-
-eval "$(rbenv init -)"
-
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -70,19 +70,6 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8 
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -101,3 +88,7 @@ export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 
 export PATH="$PATH:/Users/thijs/.bin"
 export PATH="$PATH:/Users/thijs/.local/bin"
+
+#if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
+    ~/.dotfiles/scripts/login.sh
+#fi
