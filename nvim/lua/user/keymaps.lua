@@ -1,42 +1,91 @@
--- Space is my leader key.
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- Shorten function name
+local keymap = vim.keymap.set
+-- Silent keymap option
+local opts = { silent = true }
 
--- When text is wrapped, move by terminal rows, not lines, unless a count is provided.
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+--Remap space as leader key
+keymap("", "<Space>", "<Nop>", opts)
+vim.g.mapleader = " "
 
--- Reselect visual selection after indenting.
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
+-- Modes
+--   normal_mode = "n",
+--   insert_mode = "i",
+--   visual_mode = "v",
+--   visual_block_mode = "x",
+--   term_mode = "t",
+--   command_mode = "c",
 
--- Maintain the cursor position position when yanking a visual selection.
-vim.keymap.set('v', 'y', 'myy`y')
-vim.keymap.set('v', 'Y', 'myY`y')
+-- Normal --
+-- Better window navigation
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
 
--- Disable annoying command line typo.
-vim.keymap.set('n', 'q:', ':q')
+-- Resize with arrows
+keymap("n", "<C-Up>", ":resize -2<CR>", opts)
+keymap("n", "<C-Down>", ":resize +2<CR>", opts)
+keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- Paste replace visual selection without copying it.
-vim.keymap.set('v', 'p', '"_dP')
+-- Navigate buffers
+keymap("n", "<S-l>", ":bnext<CR>", opts)
+keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
+-- Clear highlights
+keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
+
+-- Close buffers
+keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
+
+-- Better paste
+keymap("v", "p", '"_dP', opts)
+
+-- Insert --
+-- Press jk fast to enter
+keymap("i", "jk", "<ESC>", opts)
+
+-- Visual --
+-- Stay in indent mode
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+
+-- Plugins --
+
+-- NvimTree
+keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+
+-- Telescope
+keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
+keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
+keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
+keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+keymap("n", "<leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
+keymap('n', '<leader>?', require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
+keymap('n', '<leader>fm', [[<cmd>lua require('telescope.builtin').find_files({ search_dirs = {'app/Models'}, prompt_title = 'Find Models' })<CR>]], { desc="[F]ind [M]odels"}) -- luacheck: no max line length
+keymap('n', '<leader>fl', [[<cmd>lua require('telescope.builtin').find_files({ search_dirs = {'legacy'}, prompt_title = 'Find Legacy' })<CR>]], { desc="[F]ind [L]egacy"}) -- luacheck: no max line length
+
+-- Git
+keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+
+-- Comment
+keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
+keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
+
+-- DAP
+keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
+keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", opts)
+keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", opts)
+keymap("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", opts)
+keymap("n", "<leader>dO", "<cmd>lua require'dap'.step_out()<cr>", opts)
+keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
+keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
+keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
+keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
+
+-- Lsp
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
 -- Easy insertion of a trailing ; or , from insert mode.
 vim.keymap.set('i', ';;', '<Esc>A;')
 vim.keymap.set('i', ',,', '<Esc>A,')
-
--- Quickly clear search highlighting.
-vim.keymap.set('n', '<Leader>k', ':nohlsearch<CR>')
-
--- Open the current file in the default program (on Mac this should be just 'open').
-vim.keymap.set('n', '<Leader>x', ':!xdg-open %<CR><CR>')
-
--- Move lines up and down. (hrmm command j works, command k does not)
-vim.keymap.set('i', '<A-j>', '<Esc>:move .+1<CR>==gi')
-vim.keymap.set('i', '<A-k>', '<Esc>:move .-2<CR>==gi')
-vim.keymap.set('n', '<A-j>', ':move .+1<CR>==')
-vim.keymap.set('n', '<A-k>', ':move .-2<CR>==')
-vim.keymap.set('v', '<A-j>', ":move '>+1<CR>gv=gv")
-vim.keymap.set('v', '<A-k>', ":move '<-2<CR>gv=gv")
-vim.keymap.set('x', '<A-j>', ":move '>+1<CR>gv=gv")
-vim.keymap.set('x', '<A-k>', ":move '<-2<CR>gv=gv")
-
