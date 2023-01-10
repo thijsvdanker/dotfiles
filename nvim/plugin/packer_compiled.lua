@@ -94,11 +94,6 @@ _G.packer_plugins = {
     path = "/Users/thijs/.local/share/nvim/site/pack/packer/start/alpha-nvim",
     url = "https://github.com/goolord/alpha-nvim"
   },
-  ["bufferline.nvim"] = {
-    loaded = true,
-    path = "/Users/thijs/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
-    url = "https://github.com/akinsho/bufferline.nvim"
-  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/thijs/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -143,11 +138,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/thijs/.local/share/nvim/site/pack/packer/start/impatient.nvim",
     url = "https://github.com/lewis6991/impatient.nvim"
-  },
-  ["indent-blankline.nvim"] = {
-    loaded = true,
-    path = "/Users/thijs/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
-    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -327,14 +317,14 @@ time([[Defining packer_plugins]], false)
 time([[Config for vim-pasta]], true)
 try_loadstring("\27LJ\2\nG\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\2\0\0\rfugitive\29pasta_disabled_filetypes\6g\bvim\0", "config", "vim-pasta")
 time([[Config for vim-pasta]], false)
--- Config for: splitjoin.vim
-time([[Config for splitjoin.vim]], true)
-try_loadstring("\27LJ\2\n¨\1\0\0\2\0\5\0\r6\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\3\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0K\0\1\0$splitjoin_php_method_chain_full\29splitjoin_trailing_comma2splitjoin_html_attributes_bracket_on_new_line\6g\bvim\0", "config", "splitjoin.vim")
-time([[Config for splitjoin.vim]], false)
 -- Config for: which-key.nvim
 time([[Config for which-key.nvim]], true)
 try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0", "config", "which-key.nvim")
 time([[Config for which-key.nvim]], false)
+-- Config for: splitjoin.vim
+time([[Config for splitjoin.vim]], true)
+try_loadstring("\27LJ\2\n¨\1\0\0\2\0\5\0\r6\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\3\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0K\0\1\0$splitjoin_php_method_chain_full\29splitjoin_trailing_comma2splitjoin_html_attributes_bracket_on_new_line\6g\bvim\0", "config", "splitjoin.vim")
+time([[Config for splitjoin.vim]], false)
 -- Conditional loads
 time([[Conditional loading of telescope-fzf-native.nvim]], true)
   require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)
