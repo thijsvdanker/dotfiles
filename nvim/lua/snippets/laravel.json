@@ -1,8 +1,0 @@
-{
-    "Lang": {
-        "prefix": "lang",
-        "body": [
-            "@lang('base.$1')"
-        ]
-    }
-}
