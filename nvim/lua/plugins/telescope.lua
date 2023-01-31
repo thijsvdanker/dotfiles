@@ -4,12 +4,14 @@ return {
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
+      { "tsakirist/telescope-lazy.nvim" },
     },
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("fzf")
       telescope.load_extension("live_grep_args")
+      telescope.load_extension("lazy")
     end,
     opts = {
       extensions = {
