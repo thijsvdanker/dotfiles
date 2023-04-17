@@ -1,21 +1,21 @@
 {
-  "Method": {
-    "prefix": "met",
-    "body": [
-      "public function $1($2)",
-      "{",
-      "    $3",
-      "}"
-    ]
-  },
-  "Test Method": {
-    "prefix": "test",
-    "body": [
-      "/** @test */",
-      "public function $1()",
-      "{",
-      "    $3",
-      "}"
-    ]
-  }
+    "Method": {
+        "prefix": "met",
+        "body": [
+            "public function $1($2): $3",
+            "{",
+            "    $0",
+            "}"
+        ]
+    },
+    "Test Method": {
+        "prefix": "test",
+        "body": [
+            "/** @test */",
+            "public function $1()",
+            "{",
+            "    $0",
+            "}"
+        ]
+    }
 }

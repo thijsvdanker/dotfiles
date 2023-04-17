@@ -37,9 +37,104 @@ end)
 vim.keymap.set("n", "<leader>cj", ":SplitjoinJoin<CR>", { desc = "Join lines" })
 vim.keymap.set("n", "<leader>cs", ":SplitjoinSplit<CR>", { desc = "Split lines" })
 
+-- vim.keymap.set("n", "<leader>cj", ":TSJJoin<CR>", { desc = "Join lines" })
+-- vim.keymap.set("n", "<leader>cs", ":TSJSplit<CR>", { desc = "Split lines" })
+
+vim.keymap.set("n", "<leader>fs", ":lua require('telescope.builtin').resume()<CR>", { desc = "Resume" })
+
 vim.keymap.set(
   "n",
   "<leader>fg",
   ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
   { desc = "Find Grep" }
 )
+
+vim.keymap.set(
+  "n",
+  "<leader>fvg",
+  ":lua require'telescope.builtin'.live_grep{ cwd='vendor', vimgrep_arguments = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-u' } }<CR>",
+  { desc = "Find Grep (vendor)" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>fvf",
+  ":lua require'telescope.builtin'.find_files{ cwd='vendor', vimgrep_arguments = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-u' } }<CR>",
+  { desc = "Find Files (vendor)" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>fam",
+  ":lua require('telescope.builtin').find_files({cwd='app/Models', prompt_title='Find Models'})<CR>",
+  { desc = "Find App Models" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>fal",
+  ":lua require('telescope.builtin').find_files({cwd='app/Http/Livewire', prompt_title='Find Livewire'})<CR>",
+  { desc = "Find App Livewire" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>fab",
+  ":lua require('telescope.builtin').find_files({cwd='resources', prompt_title='Find Blade', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.blade.php'} })<CR>",
+  { desc = "Find App Blade" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>flc",
+  ":lua require('telescope.builtin').find_files({cwd='legacy/application/modules', prompt_title='Find Controller', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*Controller.php'} })<CR>",
+  { desc = "Find Legacy Controller" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>flt",
+  ":lua require('telescope.builtin').find_files({cwd='legacy/application/modules', prompt_title='Find template', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.phtml'} })<CR>",
+  { desc = "Find Legacy Template" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>fp",
+  ":lua require('telescope.builtin').find_files({prompt_title='Find php', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.php'} })<CR>",
+  { desc = "Find PHP" }
+)
+
+vim.keymap.set("n", "<leader>pm", ":PhpactorContextMenu<CR>", { desc = "PHP Refactoring Menu" })
+vim.keymap.set("n", "<leader>pn", ":PhpactorClassNew<CR>", { desc = "PHP New Class" })
+
+-- Open frequent files
+vim.keymap.set("n", "<leader>oc", ":e composer.json<CR>", { desc = "Open composer.json" })
+vim.keymap.set("n", "<leader>oe", ":e .env.regiweb.localhost<CR>", { desc = "Open .env" })
+vim.keymap.set(
+  "n",
+  "<leader>ol",
+  ":e legacy/application/configs/application.regiweb.localhost.ini<CR>",
+  { desc = "Open legacy config" }
+)
+
+-- DAP
+vim.keymap.set("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" })
+vim.keymap.set("n", "<leader>dc", ":lua require'dap'.continue()<CR>", { desc = "Continue" })
+vim.keymap.set("n", "<leader>di", ":lua require'dap'.step_into()<CR>", { desc = "Step Into" })
+vim.keymap.set("n", "<leader>do", ":lua require'dap'.step_over()<CR>", { desc = "Step Over" })
+vim.keymap.set("n", "<leader>du", ":lua require'dap'.step_out()<CR>", { desc = "Step Out" })
+vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>", { desc = "Open REPL" })
+vim.keymap.set("n", "<leader>dl", ":lua require'dap'.run_last()<CR>", { desc = "Run Last" })
+vim.keymap.set("n", "<leader>ds", ":lua require'dap'.run_to_cursor()<CR>", { desc = "Run to Cursor" })
+
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end

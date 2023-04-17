@@ -47,7 +47,6 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	artisan
-	npm
 	vi-mode
 	composer
 	cp
@@ -80,7 +79,7 @@ alias zshconfig="vim ~/.zshrc"
 alias phpunit="vendor/bin/phpunit"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.aliases
-source ~/.bin/tmuxinator.zsh
+#source ~/.bin/tmuxinator.zsh
 
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
@@ -92,3 +91,4 @@ export PATH="$PATH:/Users/thijs/.local/bin"
 #if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
     ~/.dotfiles/scripts/login.sh
 #fi
+#

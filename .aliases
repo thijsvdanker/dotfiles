@@ -4,6 +4,7 @@ alias gcleanup='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git br
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
 alias gcdev='git checkout development'
 alias gpsupd='git push --set-upstream origin $(git_current_branch) -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch'
+alias gmod='git fetch && git merge origin/development'
 alias vim="nvim"
 alias weer='curl -s wttr.in/Haarlem | sed -n "1,7p"'
 alias weerbericht='curl -s wttr.in/Haarlem'
@@ -85,6 +86,11 @@ function zipdiffcommit {
   git diff --name-only $1 $1^1 | zip $1.zip -@
 }
 
+function zipdiffcommittodev {
+  git fetch
+  git diff --name-only $1 origin/development | zip $1.zip -@
+}
+
 function hotfix {
   echo "lets fix it like it's hot 🔥🔥🔥"
 
@@ -153,6 +159,17 @@ function rlm {
 
 function rlc {
  zipdiffcommit $1
+ target_dir=~/documents/adsysco/builds/2\ -\ releases/$1
+ mkdir ${target_dir}
+ mv $1.zip ${target_dir}
+ cd ${target_dir}
+ unzip $1.zip
+ rm $1.zip
+ cd -
+}
+
+function rlcd {
+ zipdiffcommittodev $1
  target_dir=~/documents/adsysco/builds/2\ -\ releases/$1
  mkdir ${target_dir}
  mv $1.zip ${target_dir}

@@ -8,4 +8,16 @@ return {
       vim.g.splitjoin_php_method_chain_full = 1
     end,
   },
+  -- {
+  --   "Wansmer/treesj",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   config = function()
+  --     require("treesj").setup({
+  --       use_default_keymaps = false,
+  --     })
+  --   end,
+  -- },
 }
