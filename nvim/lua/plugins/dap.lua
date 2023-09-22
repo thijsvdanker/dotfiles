@@ -2,7 +2,8 @@ return {
   {
     "mfussenegger/nvim-dap",
     event = "VeryLazy",
-    config = function()
+    config = function(plugin)
+      plugin._.super.config(plugin, {})
       local dap = require("dap")
       dap.adapters.php = {
         type = "executable",
@@ -17,35 +18,6 @@ return {
           name = "Listen for Xdebug",
         },
       }
-    end,
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    requires = {
-      "mfussenegger/nvim-dap",
-    },
-    config = function()
-      require("dapui").setup()
-    end,
-  },
-  {
-    "theHamsta/nvim-dap-virtual-text",
-    event = "VeryLazy",
-    requires = {
-      "mfussenegger/nvim-dap",
-    },
-    config = function()
-      require("nvim-dap-virtual-text").setup()
-    end,
-  },
-  {
-    "nvim-telescope/telescope-dap.nvim",
-    requires = {
-      "mfussenegger/nvim-dap",
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require("telescope").load_extension("dap")
     end,
   },
 }

@@ -1,16 +1,11 @@
 return {
   {
     "folke/which-key.nvim",
-    config = function(plugin)
-      -- run original config
-      plugin._.super.config()
-      require("which-key").register({
-        ["<leader>t"] = { name = "+test" },
-        ["<leader>fl"] = { name = "+legacy" },
-        ["<leader>fa"] = { name = "+app" },
-        ["<leader>d"] = { name = "+debug" },
-        ["<leader>fv"] = { name = "+vendor" },
-      })
+    opts = function(_, opts)
+      opts.defaults["<leader>t"] = { name = "+test" }
+      opts.defaults["<leader>fl"] = { name = "+legacy" }
+      opts.defaults["<leader>fa"] = { name = "+app" }
+      opts.defaults["<leader>fv"] = { name = "+vendor" }
     end,
   },
 }

@@ -24,13 +24,13 @@ vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 vim.keymap.set("n", "<C-h>", function()
   ui.nav_file(1)
 end)
-vim.keymap.set("n", "<C-t>", function()
+vim.keymap.set("n", "<C-j>", function()
   ui.nav_file(2)
 end)
-vim.keymap.set("n", "<C-n>", function()
+vim.keymap.set("n", "<C-k>", function()
   ui.nav_file(3)
 end)
-vim.keymap.set("n", "<C-s>", function()
+vim.keymap.set("n", "<C-l>", function()
   ui.nav_file(4)
 end)
 
@@ -110,7 +110,9 @@ vim.keymap.set("n", "<leader>pn", ":PhpactorClassNew<CR>", { desc = "PHP New Cla
 
 -- Open frequent files
 vim.keymap.set("n", "<leader>oc", ":e composer.json<CR>", { desc = "Open composer.json" })
-vim.keymap.set("n", "<leader>oe", ":e .env.regiweb.localhost<CR>", { desc = "Open .env" })
+vim.keymap.set("n", "<leader>owe", ":e .env.regiweb.localhost<CR>", { desc = "Open .env" })
+vim.keymap.set("n", "<leader>oee", ":e .env<CR>", { desc = "Open .env" })
+vim.keymap.set("n", "<leader>or", ":e routes/web.php<CR>", { desc = "Open routes file" })
 vim.keymap.set(
   "n",
   "<leader>ol",
@@ -118,23 +120,9 @@ vim.keymap.set(
   { desc = "Open legacy config" }
 )
 
--- DAP
-vim.keymap.set("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint" })
-vim.keymap.set("n", "<leader>dc", ":lua require'dap'.continue()<CR>", { desc = "Continue" })
-vim.keymap.set("n", "<leader>di", ":lua require'dap'.step_into()<CR>", { desc = "Step Into" })
-vim.keymap.set("n", "<leader>do", ":lua require'dap'.step_over()<CR>", { desc = "Step Over" })
-vim.keymap.set("n", "<leader>du", ":lua require'dap'.step_out()<CR>", { desc = "Step Out" })
-vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>", { desc = "Open REPL" })
-vim.keymap.set("n", "<leader>dl", ":lua require'dap'.run_last()<CR>", { desc = "Run Last" })
+-- -- DAP
+-- vim.keymap.set("n", "<leader>du", ":lua require'dap'.step_out()<CR>", { desc = "Step Out" })
 vim.keymap.set("n", "<leader>ds", ":lua require'dap'.run_to_cursor()<CR>", { desc = "Run to Cursor" })
 
-local dap, dapui = require("dap"), require("dapui")
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
-end
+-- Close all buffers except the current one
+vim.keymap.set("n", "<leader>bc", ":%bd|e#<CR>", { desc = "Close all buffers except the current one" })

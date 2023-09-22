@@ -16,6 +16,9 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:~/.composer/vendor/bin:$PAT
 export PATH="/usr/local/opt/php@8.1/bin:$PATH"
 export PATH="/usr/local/opt/php@8.1/sbin:$PATH"
 
+#export PATH="/usr/local/opt/php@8.2/bin:$PATH"
+#export PATH="/usr/local/opt/php@8.2/sbin:$PATH"
+
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 export PATH="$HOME/.cargo/bin:$PATH"
