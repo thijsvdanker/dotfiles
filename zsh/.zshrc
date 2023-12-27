@@ -91,7 +91,21 @@ export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 export PATH="$PATH:/Users/thijs/.bin"
 export PATH="$PATH:/Users/thijs/.local/bin"
 
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+
 #if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
     ~/.dotfiles/scripts/login.sh
 #fi
 #
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Haven
+autoload -U bashcompinit && bashcompinit
+alias haven="/Users/thijs/Workspace/adsysco/haven/haven"
+alias hvn="/Users/thijs/Workspace/adsysco/haven/haven"
+. "/Users/thijs/Workspace/adsysco/haven/completion"
+complete -F _haven_completions haven
+complete -F _haven_completions hvn
+

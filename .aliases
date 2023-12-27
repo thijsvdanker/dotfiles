@@ -35,17 +35,45 @@ alias ci="composer install"
 alias ngroks="/Applications/ngrok"
 alias ngroke="ngroks http -region=eu -subdomain=extranet -host-header=regiextranet.localhost 80"
 alias ngrokw="ngroks http -region=eu -subdomain=regiweb -host-header=regiweb2.localhost 80"
-alias muxw2="muxs regiweb2"
-alias muxw="muxs regiweb"
-alias muxe="muxs extranet"
 alias spoon="/opt/data-integration/spoon.sh"
 alias yy="yarn && yarn run dev"
 alias sail='bash vendor/bin/sail'
 alias stan='./vendor/bin/phpstan analyse --memory-limit=3g'
-alias rdb='lando restore-db -b'
+
+alias hw='haven .hvn.dev.regiweb.haven'
+alias he='haven .hvn.dev.extranet.haven'
+
+alias hwc='hw configure'
+alias hec='he configure'
+
+alias hwci='hw run "composer install"'
+alias hwcu='hw run "composer update"'
+
+alias heci='he run "composer install"'
+alias hecu='he run "composer update"'
+
+alias thijs='echo $1'
+alias rdb="restoredb"
 
 alias xdebug-disable='echo "" > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
 alias xdebug-restore='cat /usr/local/etc/php/7.3/conf.d/xdebug.ini.bak > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
+
+function restoredb() {
+    if [ -n "$1" ]
+    then
+        FILENAME=$1
+    else
+        FILENAME=devDEMO_latest
+    fi
+    if [ -n "$2" ]
+    then
+        DBNAME=$2
+    else
+        DBNAME=devDEMO
+    fi
+
+    /Users/thijs/Workspace/adsysco/haven/haven db restore ~/Workspace/adsysco/haven/services/mssql/backups/$FILENAME.bak $DBNAME
+}
 
 function phpunitc {
 	xdebug-disable
@@ -66,7 +94,7 @@ function phplint {
 }
 
 function zipdiffmaster {
-  git diff --name-only $1 master | zip dest.zip -@
+  git diff --name-only $1 origin/master | zip dest.zip -@
 }
 
 function zipdiffdev {

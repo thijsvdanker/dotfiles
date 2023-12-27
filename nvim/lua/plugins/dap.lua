@@ -15,7 +15,16 @@ return {
         {
           type = "php",
           request = "launch",
-          name = "Listen for Xdebug",
+          name = "Listen for Xdebug from DAP",
+          port = 9000,
+          pathMappings = {
+            ["/var/www/html/regiweb-development"] = "${workspaceFolder}",
+          },
+          xdebugSettings = {
+            max_data = 9876,
+            max_children = 256,
+            max_depth = 3,
+          },
         },
       }
     end,
