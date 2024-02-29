@@ -19,6 +19,7 @@ return {
           port = 9000,
           pathMappings = {
             ["/var/www/html/regiweb-development"] = "${workspaceFolder}",
+            ["/var/www/html/regiweb-master"] = "${workspaceFolder}",
           },
           xdebugSettings = {
             max_data = 9876,
