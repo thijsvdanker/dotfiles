@@ -17,5 +17,16 @@
             "    $0",
             "}"
         ]
+    },
+    "Enum label": {
+        "prefix": "elabel",
+        "body": [
+            "public function label(): string",
+            "{",
+            "   return match($this) {"
+            "       $0",
+            "   };"
+            "}"
+        ]
     }
 }

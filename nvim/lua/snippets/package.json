@@ -12,6 +12,10 @@
       {
         "language": "php",
         "path": "./php.json"
+      },
+      {
+        "language": "markdown",
+        "path": "./obsidian.json"
       }
     ]
   }

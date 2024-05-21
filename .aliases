@@ -32,12 +32,13 @@ alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias top="sudo htop" # alias top and fix high sierra bug
 alias mux="tmuxinator"
 alias muxs="mux start --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING"
+alias tr="t ~/Workspace/adsysco/haven/repos/regiweb-development"
+alias te="t ~/Workspace/adsysco/haven/repos/extranet-development"
 alias phpd="php -dxdebug.remote_autostart"
 alias ccc="composer check-codestyle"
 alias ci="composer install"
 alias ngroks="/Applications/ngrok"
-alias ngroke="ngroks http -region=eu -subdomain=extranet -host-header=regiextranet.localhost 80"
-alias ngrokw="ngroks http -region=eu -subdomain=regiweb -host-header=regiweb2.localhost 80"
+
 alias spoon="/opt/data-integration/spoon.sh"
 alias yy="yarn && yarn run dev"
 alias sail='bash vendor/bin/sail'
@@ -60,9 +61,6 @@ alias rdb="restoredb"
 
 alias opv="nvim /Users/thijs/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Personal/Home.md"
 alias owv="nvim /Users/thijs/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Work/Home.md"
-
-alias xdebug-disable='echo "" > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
-alias xdebug-restore='cat /usr/local/etc/php/7.3/conf.d/xdebug.ini.bak > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
 
 function restoredb() {
     if [ -n "$1" ]

@@ -14,8 +14,9 @@ return {
           execute 'silent FloatermKill'
           execute 'FloatermNew! '.a:cmd.' |less -X'
         endfunction
-        let g:test#custom_strategies = {'floaterm': function('FloatermStrategy')}
-        let g:test#strategy = 'floaterm'
+        " let g:test#custom_strategies = {'floaterm': function('FloatermStrategy')}
+        " let g:test#strategy = 'floaterm'
+        " let test#php#phpunit#executable = 'php artisan test'
       ]])
     end,
   },

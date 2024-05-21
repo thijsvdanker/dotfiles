@@ -9,5 +9,8 @@ opt.tabstop = 4
 opt.softtabstop = 4
 opt.redrawtime = 10000
 
+-- preview replacements in a split
+opt.inccommand = "split"
+
 -- This is for Obsidian to display the markdown preview
 opt.conceallevel = 2

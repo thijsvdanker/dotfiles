@@ -19,7 +19,7 @@ vim.keymap.set("i", ";;", "<Esc>A;")
 vim.keymap.set("i", ",,", "<Esc>A,")
 
 vim.keymap.set("n", "<leader>a", function()
-  harpoon:list():append()
+  harpoon:list():add()
 end, { desc = "Harpoon" })
 -- vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "Harpoon" })
 vim.keymap.set("n", "<C-e>", function()
@@ -79,7 +79,7 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<leader>fal",
-  ":lua require('telescope.builtin').find_files({cwd='app/Http/Livewire', prompt_title='Find Livewire'})<CR>",
+  ":lua require('telescope.builtin').find_files({cwd='app/Livewire', prompt_title='Find Livewire'})<CR>",
   { desc = "Find App Livewire" }
 )
 
@@ -132,3 +132,31 @@ vim.keymap.set("n", "<leader>ds", ":lua require'dap'.run_to_cursor()<CR>", { des
 vim.keymap.set("n", "<leader>bc", ":%bd|e#<CR>", { desc = "Close all buffers except the current one" })
 
 -- vim.keymap.set("n", "<leader>od", ":ObsidianToday<CR>", { desc = "Obsidian Today" })
+--
+vim.keymap.set("n", "<leader>tt", ":lua require('toggle-checkbox').toggle()<CR>", { desc = "toggle checkbox" })
+
+-- Resize splits
+vim.keymap.set("n", "<M-,>", "<c-w>5<")
+vim.keymap.set("n", "<M-.>", "<c-w>5>")
+vim.keymap.set("n", "<M-t>", "<C-W>+")
+vim.keymap.set("n", "<M-s>", "<C-W>-")
+
+-- DB: wip
+-- Function to get DB_DATABASE value from environment variables and execute a query
+-- local function query_db()
+--   local db_name = vim.fn.getenv("DB_DATABASE")
+--   if db_name and db_name ~= "" then
+--     -- Construct the query command
+--     local query_command = string.format(":DB %s", db_name)
+--     -- Execute the query using vim-dadbod
+--     print(query_command)
+--   else
+--     print("DB_DATABASE is not set in the .env file")
+--   end
+-- end
+--
+-- -- Create a unique command to trigger the function
+-- vim.api.nvim_create_user_command("QueryDB", query_db, {})
+--
+-- -- Create a keybinding to trigger the command
+-- vim.api.nvim_set_keymap("n", "<leader>dq", ":QueryDB<CR>", { noremap = true, silent = true })

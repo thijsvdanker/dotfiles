@@ -1,6 +1,8 @@
 #cat $HOME/.banner | lolcat
 #cat $HOME/.tagline
 
+# zmodload zsh/zprof
+
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="cobalt2"
@@ -91,6 +93,8 @@ export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 export PATH="$PATH:/Users/thijs/.bin"
 export PATH="$PATH:/Users/thijs/.local/bin"
 
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+
 export GEM_HOME=$HOME/.gem
 export PATH=$GEM_HOME/bin:$PATH
 
@@ -109,3 +113,31 @@ alias hvn="/Users/thijs/Workspace/adsysco/haven/haven"
 complete -F _haven_completions haven
 complete -F _haven_completions hvn
 
+
+# Herd injected PHP binary.
+export PATH="/Users/thijs/Library/Application Support/Herd/bin/":$PATH
+
+
+# Herd injected PHP 8.2 configuration.
+export HERD_PHP_82_INI_SCAN_DIR="/Users/thijs/Library/Application Support/Herd/config/php/82/"
+
+export NVM_DIR="$HOME/.nvm"
+
+# Herd injected PHP 8.1 configuration.
+export HERD_PHP_81_INI_SCAN_DIR="/Users/thijs/Library/Application Support/Herd/config/php/81/"
+
+# ----- Bat (better cat) -----
+export BAT_THEME=tokyonight_night
+
+# ---- Eza (better ls) -----
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+
+# thefuck alias
+eval $(thefuck --alias)
+eval $(thefuck --alias fk)
+
+# ---- Zoxide (better cd) ----
+eval "$(zoxide init zsh)"
+alias cd="z"
+
+source ~/.dotfiles/zsh/fzf-git.sh

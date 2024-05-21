@@ -7,6 +7,14 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "nvim-lsp-signature-help" } }))
+
+      cmp.setup.filetype({ "sql" }, {
+        sources = {
+          { name = "vim-dadbod-completion" },
+          { name = "buffer" },
+        },
+      })
+
       table.insert(opts.sources, 1, {
         name = "copilot",
         group_index = 1,
