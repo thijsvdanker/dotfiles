@@ -15,8 +15,8 @@ alias cypress='node_modules/.bin/cypress'
 
 alias a='php artisan'
 alias phpunitci='phpunit --testsuite="CI Tests"'
-alias phpunitcis='phpus --order-by=defects --stop-on-defect --testsuite="CI Tests"'
-alias phpunits='phpus --order-by=defects --stop-on-defect'
+alias phpunitcis='phpunit --order-by=defects --stop-on-defect --testsuite="CI Tests"'
+alias phpunits='phpunit --order-by=defects --stop-on-defect'
 alias pest='./vendor/bin/pest'
 
 alias baseline='./vendor/bin/phpstan analyse --generate-baseline --memory-limit=2G'
@@ -30,14 +30,14 @@ alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 alias cat='bat'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias top="sudo htop" # alias top and fix high sierra bug
-alias mux="tmuxinator"
-alias muxs="mux start --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING"
 alias tr="t ~/Workspace/adsysco/haven/repos/regiweb-development"
 alias te="t ~/Workspace/adsysco/haven/repos/extranet-development"
 alias phpd="php -dxdebug.remote_autostart"
 alias ccc="composer check-codestyle"
 alias ci="composer install"
 alias ngroks="/Applications/ngrok"
+
+alias kamal='docker run -it --rm -v "${PWD}:/workdir" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
 
 alias spoon="/opt/data-integration/spoon.sh"
 alias yy="yarn && yarn run dev"
@@ -58,6 +58,8 @@ alias hecu='he run "composer update"'
 
 alias thijs='echo $1'
 alias rdb="restoredb"
+
+alias yolo="php ~/Workspace/adsysco/haven/repos/yolo-tui/src/index.php"
 
 alias opv="nvim /Users/thijs/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Personal/Home.md"
 alias owv="nvim /Users/thijs/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Work/Home.md"
@@ -114,6 +116,10 @@ function zipdiff {
   git diff --name-only HEAD~$1 HEAD | zip dest.zip -@
 }
 
+function zipdifftag {
+  git diff --name-only $1 HEAD | zip dest.zip -@
+}
+
 function zipdifflast {
   git diff --name-only HEAD HEAD^1 | zip dest.zip -@
 }
@@ -125,6 +131,12 @@ function zipdiffcommit {
 function zipdiffcommittodev {
   git fetch
   git diff --name-only $1 origin/development | zip $1.zip -@
+}
+
+function zipdiffupstream {
+  CURRENT_BRANCH=$(git branch --show-current)
+  git fetch
+  git diff --name-only $1 origin/${CURRENT_BRANCH} | zip $1.zip -@
 }
 
 function hotfix {
@@ -158,11 +170,33 @@ function clc {
     echo "Copied ${COLOR_GREEN}${LAST_COMMIT_SHA} ${COLOR_RESET}from ${BRANCH}."
 }
 
+function clco {
+    COLOR_GREEN="\033[0;32m"
+    COLOR_RESET="\033[0m"
+    [[ -z $1 ]] && BRANCH=$(git rev-parse --abbrev-ref HEAD) || BRANCH=$1
+    LAST_COMMIT_SHA=$(git rev-parse $BRANCH | tail -n 1)
+    echo "$LAST_COMMIT_SHA" | tr -d '\n' | pbcopy
+    echo "Copied ${COLOR_GREEN}${LAST_COMMIT_SHA} ${COLOR_RESET}from ${BRANCH}."
+}
+
 alias todo="nvim ~/Dropbox/notes/@adsysco\ todo.txt"
 
 function rll {
  zipdifflast
- TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)
+ SHA=$(git rev-parse --short HEAD)
+ TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)-${SHA}
+ mkdir ${TARGET_DIR}
+ mv dest.zip ${TARGET_DIR}
+ cd ${TARGET_DIR}
+ unzip dest.zip
+ rm dest.zip
+ cd -
+}
+
+function rlt {
+ zipdifftag $1
+ SHA=$(git rev-parse --short HEAD)
+ TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)-${SHA}
  mkdir ${TARGET_DIR}
  mv dest.zip ${TARGET_DIR}
  cd ${TARGET_DIR}
@@ -213,4 +247,28 @@ function rlcd {
  unzip $1.zip
  rm $1.zip
  cd -
+}
+
+function rlu {
+ CURRENT_BRANCH=$(git branch --show-current)
+ zipdiffupstream ${CURRENT_BRANCH}
+ SHA=$(git rev-parse --short HEAD)
+ target_dir=~/documents/adsysco/builds/2\ -\ releases/${CURRENT_BRANCH}-${SHA}
+ mkdir ${target_dir}
+ mv ${CURRENT_BRANCH}.zip ${target_dir}
+ cd ${target_dir}
+ unzip ${CURRENT_BRANCH}.zip
+ rm ${CURRENT_BRANCH}.zip
+ cd -
+}
+
+function devintomaster {
+    git checkout master
+    git pull
+    git checkout development
+    git pull
+    SHA=$(git rev-parse --short HEAD)
+    git checkout -b dev-into-master-${SHA}
+    git merge -s ours master
+    git push
 }

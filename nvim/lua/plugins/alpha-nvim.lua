@@ -4,19 +4,21 @@ return {
     opts = function(_, opts)
       local logo = [[
          ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀
-        ⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿        
-                ⣿⣿⣿⣿⣿⣿⣿                
-                ⣿⣿⣿⣿⣿⣿⣿                
-   ⢀⣴⣷⣤⡀        ⣿⣿⣿⣿⣿⣿⣿       ⢀⣴⣷⣤⡀  
- ⢀⣴⣿⣿⣿⣿⣿⣦⡀      ⣿⣿⣿⣿⣿⣿⣿     ⢀⣴⣿⣿⣿⣿⣿⣦⡀  
-   ⣿⣿⣿⣿⣿        ⣿⣿⣿⣿⣿⣿⣿       ⣿⣿⣿⣿⣿      
+        ⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿
+                ⣿⣿⣿⣿⣿⣿⣿
+                ⣿⣿⣿⣿⣿⣿⣿
+   ⢀⣴⣷⣤⡀        ⣿⣿⣿⣿⣿⣿⣿       ⢀⣴⣷⣤⡀
+ ⢀⣴⣿⣿⣿⣿⣿⣦⡀      ⣿⣿⣿⣿⣿⣿⣿     ⢀⣴⣿⣿⣿⣿⣿⣦⡀
+   ⣿⣿⣿⣿⣿        ⣿⣿⣿⣿⣿⣿⣿       ⣿⣿⣿⣿⣿
    ⢿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⡿
     ⠉⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠿⣿⣿⣿⠿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠉
                    ⠉
-            ~  HOLD FAST  ~
+       ~  I use NeoVim (BTW)  ~
       ]]
 
       opts.section.header.val = vim.split(logo, "\n")
+      local dashboard = require("alpha.themes.dashboard")
+      dashboard.section.buttons.val = {}
     end,
   },
 }

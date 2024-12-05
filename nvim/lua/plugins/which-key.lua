@@ -2,11 +2,23 @@ return {
   {
     "folke/which-key.nvim",
     opts = function(_, opts)
-      opts.defaults["<leader>t"] = { name = "+test" }
-      opts.defaults["<leader>fl"] = { name = "+legacy" }
-      opts.defaults["<leader>fa"] = { name = "+app" }
-      opts.defaults["<leader>fv"] = { name = "+vendor" }
-      opts.defaults["<leader>oo"] = { name = "+obsidian" }
+      opts.spec = {
+        { "<leader>b", group = "+Buffer" },
+        { "<leader>c", group = "+Code" },
+        { "<leader>o", group = "+Open" },
+        { "<leader>p", group = "+PHP" },
+        { "<leader>q", group = "+Quit" },
+        { "<leader>s", group = "+Search" },
+        { "<leader>u", group = "+UI" },
+        { "<leader>x", group = "+Quickfix" },
+        { "<leader>t", group = "+Test" },
+        { "<leader>g", group = "+Git" },
+        { "<leader>f", group = "+Find" },
+        { "<leader>fl", group = "+Legacy" },
+        { "<leader>fa", group = "+App" },
+        { "<leader>fv", group = "+Vendor" },
+        { "<leader>oo", group = "Obsidian" },
+      }
     end,
   },
 }

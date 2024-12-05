@@ -113,6 +113,7 @@ vim.keymap.set(
 
 vim.keymap.set("n", "<leader>pm", ":PhpactorContextMenu<CR>", { desc = "PHP Refactoring Menu" })
 vim.keymap.set("n", "<leader>pn", ":PhpactorClassNew<CR>", { desc = "PHP New Class" })
+vim.keymap.set("v", "<leader>pe", ":PhpactorExtractExpression<CR>", { desc = "PHP Extract expression" })
 
 -- Open frequent files
 vim.keymap.set("n", "<leader>oc", ":e composer.json<CR>", { desc = "Open composer.json" })
@@ -141,6 +142,9 @@ vim.keymap.set("n", "<M-.>", "<c-w>5>")
 vim.keymap.set("n", "<M-t>", "<C-W>+")
 vim.keymap.set("n", "<M-s>", "<C-W>-")
 
+vim.keymap.set("n", "<leader>pt", function()
+  Snacks.terminal("php artisan tinker", { cwd = LazyVim.root() })
+end, { desc = "Tinker" })
 -- DB: wip
 -- Function to get DB_DATABASE value from environment variables and execute a query
 -- local function query_db()
