@@ -2,6 +2,7 @@ return {
   {
     "folke/which-key.nvim",
     opts = function(_, opts)
+      opts.preset = "classic"
       opts.spec = {
         { "<leader>b", group = "+Buffer" },
         { "<leader>c", group = "+Code" },

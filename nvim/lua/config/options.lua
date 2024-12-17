@@ -18,3 +18,6 @@ opt.conceallevel = 2
 -- LSP Server to use for PHP.
 -- Set to "intelephense" to use intelephense instead of phpactor.
 vim.g.lazyvim_php_lsp = "intelephense"
+
+-- Dont animate things
+vim.g.snacks_animate = false

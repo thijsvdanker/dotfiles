@@ -4,6 +4,9 @@ return {
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
+      "nvim-telescope/telescope-smart-history.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+      "kkharji/sqlite.lua",
       { "tsakirist/telescope-lazy.nvim" },
     },
     config = function(_, opts)
@@ -12,6 +15,7 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("live_grep_args")
       telescope.load_extension("lazy")
+      vim.keymap.set("n", "<leader>sg", require("config.telescope.multigrep"), { desc = "multigrep" })
     end,
     opts = {
       extensions = {
@@ -33,6 +37,11 @@ return {
           "node_modules/.*",
           ".git/*",
           "_ide_helper_models.php",
+        },
+      },
+      pickers = {
+        find_files = {
+          theme = "ivy",
         },
       },
     },
