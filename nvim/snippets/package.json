@@ -1,8 +1,5 @@
 {
   "name": "thijs-snippets",
-  "engines": {
-    "vscode": "^1.11.0"
-  },
   "contributes": {
     "snippets": [
       {
@@ -15,7 +12,7 @@
       },
       {
         "language": "markdown",
-        "path": "./obsidian.json"
+        "path": "./markdown.json"
       }
     ]
   }

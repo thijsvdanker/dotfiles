@@ -23,9 +23,9 @@
         "body": [
             "public function label(): string",
             "{",
-            "   return match($this) {"
+            "   return match($this) {",
             "       $0",
-            "   };"
+            "   };",
             "}"
         ]
     }

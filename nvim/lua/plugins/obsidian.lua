@@ -84,6 +84,10 @@ return {
       end
       return tostring(os.time()) .. "-" .. suffix
     end,
+    follow_url_func = function(url)
+      -- Open the URL in the default web browser.
+      vim.ui.open(url) -- need Neovim 0.10.0+
+    end,
 
     -- see below for full list of options 👇
   },

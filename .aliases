@@ -29,9 +29,30 @@ alias phperror='tail -f /Users/thijs/.config/valet/Log/nginx-error.log'
 alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 alias cat='bat'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias preview2="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+rfv() (
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            nvim {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            nvim +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
+  fzf --disabled --ansi --multi \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up)' \
+      --query "$*"
+)
 alias top="sudo htop" # alias top and fix high sierra bug
+
 alias tr="t ~/Workspace/adsysco/haven/repos/regiweb-development"
 alias te="t ~/Workspace/adsysco/haven/repos/extranet-development"
+alias td="t ~/Workspace/thijsvdanker/.dotfiles"
+
 alias phpd="php -dxdebug.remote_autostart"
 alias ccc="composer check-codestyle"
 alias ci="composer install"
@@ -271,4 +292,23 @@ function devintomaster {
     git checkout -b dev-into-master-${SHA}
     git merge -s ours master
     git push
+}
+
+function giturl {
+    HTTPS_URL="https://git.adsysco.nl/adsysco/regiweb/-/blob"
+    FILE_PATH=$(git ls-files --full-name "$1")
+    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    GITLAB_URL="${HTTPS_URL%.git}/$CURRENT_BRANCH/$FILE_PATH"
+
+    echo $GITLAB_URL | pbcopy
+}
+
+function giturldev {
+    HTTPS_URL="https://git.adsysco.nl/adsysco/regiweb/-/blob"
+    FILE_PATH=$(git ls-files --full-name "$1")
+    CURRENT_BRANCH=development
+
+    GITLAB_URL="${HTTPS_URL%.git}/$CURRENT_BRANCH/$FILE_PATH"
+
+    echo $GITLAB_URL | pbcopy
 }

@@ -46,6 +46,10 @@ vim.keymap.set("n", "<leader>cs", ":SplitjoinSplit<CR>", { desc = "Split lines" 
 -- vim.keymap.set("n", "<leader>cj", ":TSJJoin<CR>", { desc = "Join lines" })
 -- vim.keymap.set("n", "<leader>cs", ":TSJSplit<CR>", { desc = "Split lines" })
 
+vim.keymap.set("n", "<leader>sn", function()
+  require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "[S]earch [N]eovim files" })
+
 vim.keymap.set("n", "<leader>fs", ":lua require('telescope.builtin').resume()<CR>", { desc = "Resume" })
 
 vim.keymap.set(
@@ -69,45 +73,79 @@ vim.keymap.set(
   { desc = "Find Files (vendor)" }
 )
 
+-- TELESCOPE MAPPINGS
+-- vim.keymap.set(
+--   "n",
+--   "<leader>fam",
+--   ":lua require('telescope.builtin').find_files({cwd='app/Models', prompt_title='Find Models'})<CR>",
+--   { desc = "Find App Models" }
+-- )
+
+-- vim.keymap.set(
+--   "n",
+--   "<leader>fal",
+--   ":lua require('telescope.builtin').find_files({cwd='app/Livewire', prompt_title='Find Livewire'})<CR>",
+--   { desc = "Find App Livewire" }
+-- )
+--
+-- vim.keymap.set(
+--   "n",
+--   "<leader>fab",
+--   ":lua require('telescope.builtin').find_files({cwd='resources', prompt_title='Find Blade', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.blade.php'} })<CR>",
+--   { desc = "Find App Blade" }
+-- )
+-- vim.keymap.set(
+--   "n",
+--   "<leader>flc",
+--   ":lua require('telescope.builtin').find_files({cwd='legacy/application/modules', prompt_title='Find Controller', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*Controller.php'} })<CR>",
+--   { desc = "Find Legacy Controller" }
+-- )
+-- vim.keymap.set(
+--   "n",
+--   "<leader>flt",
+--   ":lua require('telescope.builtin').find_files({cwd='legacy/application/modules', prompt_title='Find template', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.phtml'} })<CR>",
+--   { desc = "Find Legacy Template" }
+-- )
+
 vim.keymap.set(
   "n",
   "<leader>fam",
-  ":lua require('telescope.builtin').find_files({cwd='app/Models', prompt_title='Find Models'})<CR>",
+  ":lua require('snacks').picker.files({cwd='app/Models', title='Find Models'})<CR>",
   { desc = "Find App Models" }
 )
 
 vim.keymap.set(
   "n",
   "<leader>fal",
-  ":lua require('telescope.builtin').find_files({cwd='app/Livewire', prompt_title='Find Livewire'})<CR>",
+  ":lua require('snacks').picker.files({cwd='app/Livewire', title='Find Livewire'})<CR>",
   { desc = "Find App Livewire" }
 )
 
 vim.keymap.set(
   "n",
   "<leader>fab",
-  ":lua require('telescope.builtin').find_files({cwd='resources', prompt_title='Find Blade', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.blade.php'} })<CR>",
-  { desc = "Find App Blade" }
+  ":lua require('snacks').picker.files({cwd='resources', ft='blade.php', title='Find Blade'})<CR>",
+  { desc = "Find Blade" }
 )
 
 vim.keymap.set(
   "n",
   "<leader>flc",
-  ":lua require('telescope.builtin').find_files({cwd='legacy/application/modules', prompt_title='Find Controller', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*Controller.php'} })<CR>",
+  ":lua require('snacks').picker.files({cwd='legacy/application/modules', cmd='fd', args={'Controller.php'}, title='Find Controller'})<CR>",
   { desc = "Find Legacy Controller" }
 )
 
 vim.keymap.set(
   "n",
   "<leader>flt",
-  ":lua require('telescope.builtin').find_files({cwd='legacy/application/modules', prompt_title='Find template', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.phtml'} })<CR>",
+  ":lua require('snacks').picker.files({cwd='legacy/application/modules', cmd='fd', ft='phtml', title='Find template'})<CR>",
   { desc = "Find Legacy Template" }
 )
 
 vim.keymap.set(
   "n",
   "<leader>fp",
-  ":lua require('telescope.builtin').find_files({prompt_title='Find php', find_command={'rg', '--files', '--hidden', '-g', '[a-zA-z]*.php'} })<CR>",
+  ":lua require('snacks').picker.files({ft='php', title='Find PHP'})<CR>",
   { desc = "Find PHP" }
 )
 
@@ -134,7 +172,6 @@ vim.keymap.set("n", "<leader>bc", ":%bd|e#<CR>", { desc = "Close all buffers exc
 
 -- vim.keymap.set("n", "<leader>od", ":ObsidianToday<CR>", { desc = "Obsidian Today" })
 --
-vim.keymap.set("n", "<leader>tt", ":lua require('toggle-checkbox').toggle()<CR>", { desc = "toggle checkbox" })
 
 -- Resize splits
 vim.keymap.set("n", "<M-,>", "<c-w>5<")
@@ -142,9 +179,23 @@ vim.keymap.set("n", "<M-.>", "<c-w>5>")
 vim.keymap.set("n", "<M-t>", "<C-W>+")
 vim.keymap.set("n", "<M-s>", "<C-W>-")
 
+vim.keymap.set("n", "-", "<cmd>Oil<CR>")
+
 vim.keymap.set("n", "<leader>pt", function()
   Snacks.terminal("php artisan tinker", { cwd = LazyVim.root() })
 end, { desc = "Tinker" })
+
+vim.keymap.set("n", "<leader>dqf", ":DB redis://127.0.0.1:63790 FLUSHALL<CR>", { desc = "Flush Redis" })
+
+vim.keymap.set("n", "<leader>dqu", function()
+  require("regicare").get_username()
+end, { desc = "Usernames" })
+vim.keymap.set("n", "<leader>dqq", ":pclose<CR>", { desc = "close preview" })
+vim.keymap.set("n", "<leader>dqh", ":UseHavenDB<CR>", { desc = "[H]aven db" })
+vim.keymap.set("n", "<leader>dqs", ":UseScoutDB ", { desc = "[S]cout db" })
+
+vim.keymap.set("n", "<leader>gu", "<cmd>CopyGitlabUrlDev<cr>", { desc = "Copy Gitlab [U]RL" })
+
 -- DB: wip
 -- Function to get DB_DATABASE value from environment variables and execute a query
 -- local function query_db()

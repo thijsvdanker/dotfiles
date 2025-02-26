@@ -21,3 +21,5 @@ vim.g.lazyvim_php_lsp = "intelephense"
 
 -- Dont animate things
 vim.g.snacks_animate = false
+
+vim.g.lazyvim_picker = "snacks"

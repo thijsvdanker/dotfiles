@@ -1,8 +1,10 @@
+#to profile startup time use zsh/zprof and call "zprof" when the shell is loaded to see results.
+# zmodload zsh/zprof
+
 #cat $HOME/.banner | lolcat
 #cat $HOME/.tagline
 
-# zmodload zsh/zprof
-
+export FOO=zsh
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="cobalt2"
@@ -62,6 +64,7 @@ plugins=(
 	macos
 	git-trim
 	tmux
+    web-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -98,9 +101,13 @@ export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export GEM_HOME=$HOME/.gem
 export PATH=$GEM_HOME/bin:$PATH
 
-#if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
+if [[ -n "$NVIM" ]]; then
+else
     ~/.dotfiles/scripts/login.sh
-#fi
+fi
+if [[ "$PWD" == "$HOME" ]]; then
+    # ~/.dotfiles/scripts/login.sh
+fi
 #
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -126,8 +133,11 @@ export NVM_DIR="$HOME/.nvm"
 # Herd injected PHP 8.1 configuration.
 export HERD_PHP_81_INI_SCAN_DIR="/Users/thijs/Library/Application Support/Herd/config/php/81/"
 
+# Add python (used for cheat.sh)
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
 # ----- Bat (better cat) -----
-export BAT_THEME=tokyonight_night
+export BAT_THEME=TwoDark
 
 # ---- Eza (better ls) -----
 # alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
@@ -141,3 +151,18 @@ eval "$(zoxide init zsh)"
 alias cd="z"
 
 source ~/.dotfiles/zsh/fzf-git.sh
+
+vv() {
+  # Assumes all configs exist in directories named ~/.config/nvim-*
+  local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+ 
+  # If I exit fzf without selecting a config, don't open Neovim
+  [[ -z $config ]] && echo "No config selected" && return
+ 
+  # Open Neovim with the selected config
+  NVIM_APPNAME=$(basename $config) nvim $@
+}
+
+
+# Herd injected PHP 8.3 configuration.
+export HERD_PHP_83_INI_SCAN_DIR="/Users/thijs/Library/Application Support/Herd/config/php/83/"
