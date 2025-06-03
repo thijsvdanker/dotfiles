@@ -18,7 +18,10 @@ vim.keymap.set("n", "q:", ":q")
 vim.keymap.set("i", ";;", "<Esc>A;")
 vim.keymap.set("i", ",,", "<Esc>A,")
 
-vim.keymap.set("n", "<leader>a", function()
+-- Get out of insert mode
+vim.keymap.set("i", "jj", "<Esc>")
+
+vim.keymap.set("n", "<leader>ha", function()
   harpoon:list():add()
 end, { desc = "Harpoon" })
 -- vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "Harpoon" })
@@ -49,6 +52,8 @@ vim.keymap.set("n", "<leader>cs", ":SplitjoinSplit<CR>", { desc = "Split lines" 
 vim.keymap.set("n", "<leader>sn", function()
   require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
+
+vim.keymap.set("n", "<leader>pa", ":lua require('php.artisan').telescope_select_artisan()<CR>", { desc = "Artisan" })
 
 vim.keymap.set("n", "<leader>fs", ":lua require('telescope.builtin').resume()<CR>", { desc = "Resume" })
 

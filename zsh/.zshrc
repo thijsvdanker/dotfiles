@@ -16,10 +16,6 @@ VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:~/.composer/vendor/bin:$PATH
 
-# load php 8.1 by default now
-export PATH="/usr/local/opt/php@8.1/bin:$PATH"
-export PATH="/usr/local/opt/php@8.1/sbin:$PATH"
-
 #export PATH="/usr/local/opt/php@8.2/bin:$PATH"
 #export PATH="/usr/local/opt/php@8.2/sbin:$PATH"
 
@@ -33,7 +29,7 @@ export XDEBUG_CONFIG="idekey=VSCODE"
 
 export EDITOR=vim
 export GIT_EDITOR=vim
-export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+# export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket # this crashes vim 0.11
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -122,7 +118,7 @@ complete -F _haven_completions hvn
 
 
 # Herd injected PHP binary.
-export PATH="/Users/thijs/Library/Application Support/Herd/bin/":$PATH
+# export PATH="/Users/thijs/Library/Application Support/Herd/bin/":$PATH
 
 
 # Herd injected PHP 8.2 configuration.
@@ -141,10 +137,6 @@ export BAT_THEME=TwoDark
 
 # ---- Eza (better ls) -----
 # alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
-
-# thefuck alias
-eval $(thefuck --alias)
-eval $(thefuck --alias fk)
 
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init zsh)"

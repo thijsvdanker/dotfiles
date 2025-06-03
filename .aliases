@@ -12,6 +12,7 @@ alias mssql='mssql -s localhost -u SA -p Thijsthijs12'
 alias regiservice='docker start 6d152db70915'
 alias ava='node_modules/.bin/ava'
 alias cypress='node_modules/.bin/cypress'
+alias ytdl='yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 $1'
 
 alias a='php artisan'
 alias phpunitci='phpunit --testsuite="CI Tests"'
@@ -67,6 +68,9 @@ alias stan='./vendor/bin/phpstan analyse --memory-limit=3g'
 
 alias hw='haven .hvn.dev.regiweb.haven'
 alias he='haven .hvn.dev.extranet.haven'
+
+alias hwb='hw install && hw build'
+alias heb='he install && he build'
 
 alias hwc='hw configure'
 alias hec='he configure'
@@ -183,12 +187,7 @@ function php80 {
 }
 
 function clc {
-    COLOR_GREEN="\033[0;32m"
-    COLOR_RESET="\033[0m"
-    [[ -z $1 ]] && BRANCH=$(git rev-parse --abbrev-ref HEAD) || BRANCH=$1
-    LAST_COMMIT_SHA=$(git rev-parse $BRANCH | tail -n 1)
-    echo "$LAST_COMMIT_SHA" | tr -d '\n' | pbcopy
-    echo "Copied ${COLOR_GREEN}${LAST_COMMIT_SHA} ${COLOR_RESET}from ${BRANCH}."
+    git show --oneline | head -1 | awk '{ print $1 }' | pbcopy
 }
 
 function clco {
@@ -206,7 +205,7 @@ function rll {
  zipdifflast
  SHA=$(git rev-parse --short HEAD)
  TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)-${SHA}
- mkdir ${TARGET_DIR}
+ mkdir -p ${TARGET_DIR}
  mv dest.zip ${TARGET_DIR}
  cd ${TARGET_DIR}
  unzip dest.zip
@@ -229,7 +228,7 @@ function rlt {
 function rld {
  zipdiffdev
  target_dir=~/documents/adsysco/builds/2\ -\ releases/$(git_current_branch)
- mkdir ${target_dir}
+ mkdir -p ${target_dir}
  mv ${CURRENT_BRANCH}.zip ${target_dir}
  cd ${target_dir}
  unzip ${CURRENT_BRANCH}.zip
@@ -240,7 +239,7 @@ function rld {
 function rlm {
  zipdiffmaster
  target_dir=~/documents/adsysco/builds/2\ -\ releases/$(git_current_branch)
- mkdir ${target_dir}
+ mkdir -p ${target_dir}
  mv dest.zip ${target_dir}
  cd ${target_dir}
  unzip dest.zip
@@ -251,7 +250,7 @@ function rlm {
 function rlc {
  zipdiffcommit $1
  target_dir=~/documents/adsysco/builds/2\ -\ releases/$1
- mkdir ${target_dir}
+ mkdir -p ${target_dir}
  mv $1.zip ${target_dir}
  cd ${target_dir}
  unzip $1.zip
@@ -311,4 +310,12 @@ function giturldev {
     GITLAB_URL="${HTTPS_URL%.git}/$CURRENT_BRANCH/$FILE_PATH"
 
     echo $GITLAB_URL | pbcopy
+}
+
+function stopwatch {
+        start=$(date +%s)
+        while true; do
+            time="$(($(date +%s) - $start))"
+            printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        done
 }

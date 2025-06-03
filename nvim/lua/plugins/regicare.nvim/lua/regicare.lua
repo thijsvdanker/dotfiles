@@ -71,9 +71,14 @@ M.restoreScout = function(args)
 end
 
 M.setScoutDB = function(args)
-  vim.cmd("UpdateEnv DB_HOST scout.adsysco.local")
+  -- vim.cmd("UpdateEnv DB_HOST scout.adsysco.local")
+  vim.cmd("UpdateEnv DB_HOST 192.168.0.20")
   vim.cmd("UpdateEnv DB_USERNAME devIntrepid")
   vim.cmd("UpdateEnv DB_PASSWORD efykdgqbyr5s7xxwgntyp2hv46af4u5v")
+  vim.cmd("UpdateEnv DB_USERNAME_POSTCODE devIntrepid")
+  vim.cmd("UpdateEnv DB_PASSWORD_POSTCODE efykdgqbyr5s7xxwgntyp2hv46af4u5v")
+  vim.cmd("UpdateEnv DB_USERNAME_INVENTORY devIntrepid")
+  vim.cmd("UpdateEnv DB_PASSWORD_INVENTORY efykdgqbyr5s7xxwgntyp2hv46af4u5v")
   vim.cmd("UpdateEnv DB_DATABASE " .. args)
   vim.cmd("DB redis://127.0.0.1:63790 FLUSHALL")
 end
@@ -85,6 +90,10 @@ M.setHavenDB = function()
 
   vim.cmd("UpdateEnv DB_USERNAME SA")
   vim.cmd("UpdateEnv DB_PASSWORD RegiWeb123")
+  vim.cmd("UpdateEnv DB_USERNAME_POSTCODE SA")
+  vim.cmd("UpdateEnv DB_PASSWORD_POSTCODE RegiWeb123")
+  vim.cmd("UpdateEnv DB_USERNAME_INVENTORY SA")
+  vim.cmd("UpdateEnv DB_PASSWORD_INVENTORY RegiWeb123")
   vim.cmd("UpdateEnv DB_DATABASE devDemo")
   vim.cmd("DB redis://127.0.0.1:63790 FLUSHALL")
 end

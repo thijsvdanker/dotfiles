@@ -1,8 +1,7 @@
 return {
-  "williamboman/mason.nvim",
-  opts = {
+  { "williamboman/mason.nvim", opts = {
     ensure_installed = {
       "pint",
     },
-  },
+  } },
 }
