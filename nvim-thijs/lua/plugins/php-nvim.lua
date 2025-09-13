@@ -1,1 +1,0 @@
-return { 'tjdevries/php.nvim' }
