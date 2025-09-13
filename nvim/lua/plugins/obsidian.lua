@@ -32,42 +32,42 @@ return {
       -- Optional, if you keep daily notes in a separate directory.
       folder = "notes/dailies",
     },
-    mappings = {
-      -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-      ["gf"] = {
-        action = function()
-          return require("obsidian").util.gf_passthrough()
-        end,
-        opts = { noremap = false, expr = true, buffer = true },
-      },
-      -- Toggle check-boxes.
-      ["<leader>ch"] = {
-        action = function()
-          return require("obsidian").util.toggle_checkbox()
-        end,
-        opts = { buffer = true },
-      },
-      ["<leader>ood"] = {
-        action = ":ObsidianToday<CR>",
-        opts = { desc = "Today" },
-      },
-      ["<leader>ooy"] = {
-        action = ":ObsidianYesterday<CR>",
-        opts = { desc = "Yesterday" },
-      },
-      ["<leader>oot"] = {
-        action = ":ObsidianTomorrow<CR>",
-        opts = { desc = "Tomorrow" },
-      },
-      ["<leader>oow"] = {
-        action = ":ObsidianWorkspace work<CR>:ObsidianToday<CR>",
-        opts = { desc = "Open Work vault" },
-      },
-      ["<leader>oop"] = {
-        action = ":ObsidianWorkspace personal<CR>:ObsidianToday<CR>",
-        opts = { desc = "Open Personal vault" },
-      },
-    },
+    -- mappings = {
+    --   -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+    --   ["gf"] = {
+    --     action = function()
+    --       return require("obsidian").util.gf_passthrough()
+    --     end,
+    --     opts = { noremap = false, expr = true, buffer = true },
+    --   },
+    --   -- Toggle check-boxes.
+    --   ["<leader>ch"] = {
+    --     action = function()
+    --       return require("obsidian").util.toggle_checkbox()
+    --     end,
+    --     opts = { buffer = true },
+    --   },
+    --   ["<leader>ood"] = {
+    --     action = ":ObsidianToday<CR>",
+    --     opts = { desc = "Today" },
+    --   },
+    --   ["<leader>ooy"] = {
+    --     action = ":ObsidianYesterday<CR>",
+    --     opts = { desc = "Yesterday" },
+    --   },
+    --   ["<leader>oot"] = {
+    --     action = ":ObsidianTomorrow<CR>",
+    --     opts = { desc = "Tomorrow" },
+    --   },
+    --   ["<leader>oow"] = {
+    --     action = ":ObsidianWorkspace work<CR>:ObsidianToday<CR>",
+    --     opts = { desc = "Open Work vault" },
+    --   },
+    --   ["<leader>oop"] = {
+    --     action = ":ObsidianWorkspace personal<CR>:ObsidianToday<CR>",
+    --     opts = { desc = "Open Personal vault" },
+    --   },
+    -- },
     note_id_func = function(title)
       -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
       -- In this case a note with the title 'My new note' will be given an ID that looks

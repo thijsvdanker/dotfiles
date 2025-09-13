@@ -1,0 +1,17 @@
+return {}
+-- @todo: watch project and maybe enable later
+-- return {
+--   "adibhanna/laravel.nvim",
+--   dependencies = {
+--     "MunifTanjim/nui.nvim",
+--     "nvim-lua/plenary.nvim",
+--   },
+--   config = function()
+--     require("laravel").setup({
+--       sail = {
+--         enabled = false, -- Enable/disable Laravel Sail integration (default: true)
+--         auto_detect = false, -- Auto-detect Sail usage in project (default: true)
+--       },
+--     })
+--   end,
+-- }

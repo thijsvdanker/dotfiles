@@ -201,6 +201,8 @@ vim.keymap.set("n", "<leader>dqs", ":UseScoutDB ", { desc = "[S]cout db" })
 
 vim.keymap.set("n", "<leader>gu", "<cmd>CopyGitlabUrlDev<cr>", { desc = "Copy Gitlab [U]RL" })
 
+vim.keymap.set("n", "<leader>ood", "<cmd>:Obsidian today<CR>", { desc = "Today" })
+
 -- DB: wip
 -- Function to get DB_DATABASE value from environment variables and execute a query
 -- local function query_db()
