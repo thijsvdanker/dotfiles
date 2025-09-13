@@ -1,0 +1,32 @@
+{
+    "Method": {
+        "prefix": "met",
+        "body": [
+            "public function $1($2): $3",
+            "{",
+            "    $0",
+            "}"
+        ]
+    },
+    "Test Method": {
+        "prefix": "test",
+        "body": [
+            "/** @test */",
+            "public function $1()",
+            "{",
+            "    $0",
+            "}"
+        ]
+    },
+    "Enum label": {
+        "prefix": "elabel",
+        "body": [
+            "public function label(): string",
+            "{",
+            "   return match($this) {",
+            "       $0",
+            "   };",
+            "}"
+        ]
+    }
+}

@@ -9,8 +9,8 @@ ln -sf $DOTFILES/zsh/.zshrc $HOME/.zshrc
 rm -rf $HOME/.fzf.zsh
 ln -sf $DOTFILES/zsh/fzf.zsh $HOME/.fzf.zsh
 
-rm -rf $HOME/.config/kitty
-ln -s $DOTFILES/kitty $HOME/.config/kitty
+rm -rf $HOME/.config/ghostty
+ln -s $DOTFILES/ghostty $HOME/.config/ghostty
 
 rm -rf $HOME/.tmux.conf
 ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
@@ -23,9 +23,12 @@ ln -s $DOTFILES/scripts/t $HOME/.local/bin/t
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
+rm -rf $HOME/.config/phpactor
+ln -s $DOTFILES/phpactor/ $HOME/.config/phpactor
+
 rm $HOME/.aliases
 ln -s $DOTFILES/.aliases $HOME/.aliases
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi

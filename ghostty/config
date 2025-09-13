@@ -1,0 +1,12 @@
+theme = snazzy soft
+font-family = "JetBrainsMono Nerd Font Mono"
+
+
+font-size = 13
+adjust-cell-height=50%
+macos-titlebar-style = hidden
+
+
+keybind = global:ctrl+opt+shift+a=toggle_quick_terminal
+background-opacity=1
+background-blur=true

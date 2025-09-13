@@ -1,0 +1,19 @@
+{
+  "name": "thijs-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "php",
+        "path": "./laravel.json"
+      },
+      {
+        "language": "php",
+        "path": "./php.json"
+      },
+      {
+        "language": "markdown",
+        "path": "./markdown.json"
+      }
+    ]
+  }
+}

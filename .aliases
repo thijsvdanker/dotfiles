@@ -3,7 +3,9 @@ alias fgco="fzf-git-checkout"
 alias gcleanup='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
 alias gcdev='git checkout development'
+alias gfs='git flow feature start $1'
 alias gpsupd='git push --set-upstream origin $(git_current_branch) -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch'
+alias gmod='git fetch && git merge origin/development'
 alias vim="nvim"
 alias weer='curl -s wttr.in/Haarlem | sed -n "1,7p"'
 alias weerbericht='curl -s wttr.in/Haarlem'
@@ -11,12 +13,16 @@ alias mssql='mssql -s localhost -u SA -p Thijsthijs12'
 alias regiservice='docker start 6d152db70915'
 alias ava='node_modules/.bin/ava'
 alias cypress='node_modules/.bin/cypress'
+alias ytdl='yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 $1'
 
 alias a='php artisan'
 alias phpunitci='phpunit --testsuite="CI Tests"'
-alias phpunitcis='phpus --order-by=defects --stop-on-defect --testsuite="CI Tests"'
-alias phpunits='phpus --order-by=defects --stop-on-defect'
+alias phpunitcis='phpunit --order-by=defects --stop-on-defect --testsuite="CI Tests"'
+alias phpunits='phpunit --order-by=defects --stop-on-defect'
 alias pest='./vendor/bin/pest'
+
+alias baseline='./vendor/bin/phpstan analyse --generate-baseline --memory-limit=2G'
+alias phpstan='./vendor/bin/phpstan analyse --memory-limit=2G'
 
 alias brewstop='sudo brew services stop --all'
 alias brewstart='sudo brew services start --all'
@@ -25,26 +31,85 @@ alias phperror='tail -f /Users/thijs/.config/valet/Log/nginx-error.log'
 alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 alias cat='bat'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias preview2="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+rfv() (
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            nvim {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            nvim +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
+  fzf --disabled --ansi --multi \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up)' \
+      --query "$*"
+)
 alias top="sudo htop" # alias top and fix high sierra bug
-alias mux="tmuxinator"
-alias muxs="mux start --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING"
+
+alias tr="t ~/Workspace/adsysco/haven/repos/regiweb-development"
+alias te="t ~/Workspace/adsysco/haven/repos/extranet-development"
+alias td="t ~/Workspace/thijsvdanker/.dotfiles"
+
 alias phpd="php -dxdebug.remote_autostart"
 alias ccc="composer check-codestyle"
 alias ci="composer install"
 alias ngroks="/Applications/ngrok"
-alias ngroke="ngroks http -region=eu -subdomain=extranet -host-header=regiextranet.localhost 80"
-alias ngrokw="ngroks http -region=eu -subdomain=regiweb -host-header=regiweb2.localhost 80"
-alias muxw2="muxs regiweb2"
-alias muxw="muxs regiweb"
-alias muxe="muxs extranet"
+
+alias kamal='docker run -it --rm -v "${PWD}:/workdir" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
+
 alias spoon="/opt/data-integration/spoon.sh"
 alias yy="yarn && yarn run dev"
 alias sail='bash vendor/bin/sail'
 alias stan='./vendor/bin/phpstan analyse --memory-limit=3g'
-alias rdb='lando restore-db -b'
 
-alias xdebug-disable='echo "" > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
-alias xdebug-restore='cat /usr/local/etc/php/7.3/conf.d/xdebug.ini.bak > /usr/local/etc/php/7.3/conf.d/xdebug.ini'
+alias hw='haven .hvn.dev.regiweb.haven'
+alias he='haven .hvn.dev.extranet.haven'
+
+alias hwb='hw install && hw build'
+alias heb='he install && he build'
+
+alias hwc='hw configure'
+alias hec='he configure'
+
+alias hwci='hw run "composer install"'
+alias hwcu='hw run "composer update"'
+
+alias heci='he run "composer install"'
+alias hecu='he run "composer update"'
+
+alias thijs='echo $1'
+alias rdb="restoredb"
+
+alias yolo="php ~/Workspace/adsysco/haven/repos/yolo-tui/src/index.php"
+
+alias opv="nvim /Users/thijs/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Personal/Home.md"
+alias owv="nvim /Users/thijs/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Work/Home.md"
+
+function restoredb() {
+    if [ -n "$1" ]
+    then
+        FILENAME=$1
+    else
+        FILENAME=demoDEMO
+    fi
+    if [ -n "$2" ]
+    then
+        DBNAME=$2
+    else
+        DBNAME=devDEMO
+    fi
+
+    /Users/thijs/Workspace/adsysco/haven/haven db restore ~/Workspace/adsysco/haven/services/mssql/backups/$FILENAME.bak $DBNAME
+}
+
+function restoreScout() {
+    ssh thijs@intrepid.adsysco.nl /srv/shared/haven/haven db restore-db-on-scout $1 $2
+}
 
 function phpunitc {
 	xdebug-disable
@@ -65,16 +130,20 @@ function phplint {
 }
 
 function zipdiffmaster {
-  git diff --name-only $1 master | zip dest.zip -@
+  git diff --name-only $1 origin/master | zip dest.zip -@
 }
 
 function zipdiffdev {
   CURRENT_BRANCH=$(git branch --show-current)
-  git diff --name-only ${CURRENT_BRANCH} $(git merge-base ${CURRENT_BRANCH} origin/development) | zip ${CURRENT_BRANCH}.zip -@
+  git diff --name-only ${CURRENT_BRANCH} $(git merge-base ${CURRENT_BRANCH} origin/development) | zip dest.zip -@
 }
 
 function zipdiff {
   git diff --name-only HEAD~$1 HEAD | zip dest.zip -@
+}
+
+function zipdifftag {
+  git diff --name-only $1 HEAD | zip dest.zip -@
 }
 
 function zipdifflast {
@@ -85,19 +154,48 @@ function zipdiffcommit {
   git diff --name-only $1 $1^1 | zip $1.zip -@
 }
 
+function zipdiffcommittodev {
+  git fetch
+  git diff --name-only $1 origin/development | zip $1.zip -@
+}
+
+function zipdiffupstream {
+  CURRENT_BRANCH=$(git branch --show-current)
+  git fetch
+  git diff --name-only $1 origin/${CURRENT_BRANCH} | zip $1.zip -@
+}
+
 function hotfix {
   echo "lets fix it like it's hot 🔥🔥🔥"
 
   BRANCH_MASTER=$(git branch --show-current)
   BRANCH_DEV=${BRANCH_MASTER}-dev
 
-  git push --set-upstream origin ${BRANCH_MASTER} -o merge_request.create -o merge_request.target=master -o merge_request.remove_source_branch
+  git push --set-upstream origin ${BRANCH_MASTER} -o merge_request.create -o merge_request.target=master -o merge_request.remove_source_branch -o merge_request.assign=me -o merge_request.merge_when_pipeline_succeeds
   rll
   git checkout development
   git pull
   git checkout -b ${BRANCH_DEV}
   git cherry-pick $(git rev-parse ${BRANCH_MASTER})
-  git push --set-upstream origin ${BRANCH_DEV} -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch
+  git push --set-upstream origin ${BRANCH_DEV} -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch -o merge_request.assign=me -o merge_request.merge_when_pipeline_succeeds
+
+  echo "All done, we're cool now 😎"
+}
+
+function gpmrm {
+  BRANCH_MASTER=$(git branch --show-current)
+
+  git push --set-upstream origin ${BRANCH_MASTER} -o merge_request.create -o merge_request.target=master -o merge_request.remove_source_branch -o merge_request.assign=me
+  rll
+
+  echo "All done, we're cool now 😎"
+}
+
+function gpmrd {
+  BRANCH_MASTER=$(git branch --show-current)
+
+  git push --set-upstream origin ${BRANCH_MASTER} -o merge_request.create -o merge_request.target=development -o merge_request.remove_source_branch -o merge_request.assign=me
+  rll
 
   echo "All done, we're cool now 😎"
 }
@@ -108,6 +206,10 @@ function php80 {
 }
 
 function clc {
+    git show --oneline | head -1 | awk '{ print $1 }' | pbcopy
+}
+
+function clco {
     COLOR_GREEN="\033[0;32m"
     COLOR_RESET="\033[0m"
     [[ -z $1 ]] && BRANCH=$(git rev-parse --abbrev-ref HEAD) || BRANCH=$1
@@ -120,7 +222,20 @@ alias todo="nvim ~/Dropbox/notes/@adsysco\ todo.txt"
 
 function rll {
  zipdifflast
- TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)
+ SHA=$(git rev-parse --short HEAD)
+ TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)-${SHA}
+ mkdir -p ${TARGET_DIR}
+ mv dest.zip ${TARGET_DIR}
+ cd ${TARGET_DIR}
+ unzip dest.zip
+ rm dest.zip
+ cd -
+}
+
+function rlt {
+ zipdifftag $1
+ SHA=$(git rev-parse --short HEAD)
+ TARGET_DIR=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)-${SHA}
  mkdir ${TARGET_DIR}
  mv dest.zip ${TARGET_DIR}
  cd ${TARGET_DIR}
@@ -131,19 +246,20 @@ function rll {
 
 function rld {
  zipdiffdev
- target_dir=~/documents/adsysco/builds/2\ -\ releases/$(git_current_branch)
- mkdir ${target_dir}
- mv ${CURRENT_BRANCH}.zip ${target_dir}
- cd ${target_dir}
- unzip ${CURRENT_BRANCH}.zip
- rm ${CURRENT_BRANCH}.zip
+ SHA=$(git rev-parse --short HEAD)
+ TARGET_DIR=~/documents/adsysco/builds/2\ -\ releases/$(git_current_branch)-${SHA}
+ mkdir -p ${TARGET_DIR}
+ mv dest.zip ${TARGET_DIR}
+ cd ${TARGET_DIR}
+ unzip dest.zip
+ rm dest.zip
  cd -
 }
 
 function rlm {
  zipdiffmaster
  target_dir=~/documents/adsysco/builds/2\ -\ releases/$(git_current_branch)
- mkdir ${target_dir}
+ mkdir -p ${target_dir}
  mv dest.zip ${target_dir}
  cd ${target_dir}
  unzip dest.zip
@@ -154,10 +270,72 @@ function rlm {
 function rlc {
  zipdiffcommit $1
  target_dir=~/documents/adsysco/builds/2\ -\ releases/$1
+ mkdir -p ${target_dir}
+ mv $1.zip ${target_dir}
+ cd ${target_dir}
+ unzip $1.zip
+ rm $1.zip
+ cd -
+}
+
+function rlcd {
+ zipdiffcommittodev $1
+ target_dir=~/documents/adsysco/builds/2\ -\ releases/$1
  mkdir ${target_dir}
  mv $1.zip ${target_dir}
  cd ${target_dir}
  unzip $1.zip
  rm $1.zip
  cd -
+}
+
+function rlu {
+ CURRENT_BRANCH=$(git branch --show-current)
+ zipdiffupstream ${CURRENT_BRANCH}
+ SHA=$(git rev-parse --short HEAD)
+ target_dir=~/documents/adsysco/builds/2\ -\ releases/${CURRENT_BRANCH}-${SHA}
+ mkdir ${target_dir}
+ mv ${CURRENT_BRANCH}.zip ${target_dir}
+ cd ${target_dir}
+ unzip ${CURRENT_BRANCH}.zip
+ rm ${CURRENT_BRANCH}.zip
+ cd -
+}
+
+function devintomaster {
+    git checkout master
+    git pull
+    git checkout development
+    git pull
+    SHA=$(git rev-parse --short HEAD)
+    git checkout -b dev-into-master-${SHA}
+    git merge -s ours master
+    git push
+}
+
+function giturl {
+    HTTPS_URL="https://git.adsysco.nl/adsysco/regiweb/-/blob"
+    FILE_PATH=$(git ls-files --full-name "$1")
+    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    GITLAB_URL="${HTTPS_URL%.git}/$CURRENT_BRANCH/$FILE_PATH"
+
+    echo $GITLAB_URL | pbcopy
+}
+
+function giturldev {
+    HTTPS_URL="https://git.adsysco.nl/adsysco/regiweb/-/blob"
+    FILE_PATH=$(git ls-files --full-name "$1")
+    CURRENT_BRANCH=development
+
+    GITLAB_URL="${HTTPS_URL%.git}/$CURRENT_BRANCH/$FILE_PATH"
+
+    echo $GITLAB_URL | pbcopy
+}
+
+function stopwatch {
+        start=$(date +%s)
+        while true; do
+            time="$(($(date +%s) - $start))"
+            printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        done
 }
