@@ -17,6 +17,13 @@ return {
     -- see below for full list of optional dependencies 👇
   },
   opts = {
+
+    footer = {
+      enabled = false,
+      format = "{{backlinks}} backlinks  {{properties}} properties  {{words}} words  {{chars}} chars",
+      hl_group = "Comment",
+      separator = string.rep(":", 80),
+    },
     workspaces = {
       {
         name = "work",

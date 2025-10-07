@@ -165,6 +165,16 @@ function zipdiffupstream {
   git diff --name-only $1 origin/${CURRENT_BRANCH} | zip $1.zip -@
 }
 
+function zipdiffbranchmaster {
+  git fetch
+  git diff --name-only $1 origin/master | zip dest.zip -@
+}
+
+function zipdiffbranchdev {
+  git fetch
+  git diff --name-only $1 origin/development | zip dest.zip -@
+}
+
 function hotfix {
   echo "lets fix it like it's hot 🔥🔥🔥"
 
@@ -257,14 +267,29 @@ function rld {
 }
 
 function rlm {
+ CURRENT_BRANCH=$(git branch --show-current)
+
  zipdiffmaster
- target_dir=~/documents/adsysco/builds/2\ -\ releases/$(git_current_branch)
+ SHA=$(git rev-parse --short HEAD)
+ target_dir=~/Documents/AdSysCo/Builds/2\ -\ releases/$(git_current_branch)-${SHA}
  mkdir -p ${target_dir}
  mv dest.zip ${target_dir}
  cd ${target_dir}
  unzip dest.zip
  rm dest.zip
  cd -
+
+ git checkout master
+ zipdiffbranchmaster ${CURRENT_BRANCH}
+ target_dir=~/Documents/AdSysCo/Builds/2\ -\ releases/${CURRENT_BRANCH}-${SHA}-revert
+ mkdir -p ${target_dir}
+ mv dest.zip ${target_dir}
+ cd ${target_dir}
+ unzip dest.zip
+ rm dest.zip
+ cd -
+
+ git checkout ${CURRENT_BRANCH}
 }
 
 function rlc {
