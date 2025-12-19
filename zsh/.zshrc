@@ -158,3 +158,16 @@ vv() {
 
 # Herd injected PHP 8.3 configuration.
 export HERD_PHP_83_INI_SCAN_DIR="/Users/thijs/Library/Application Support/Herd/config/php/83/"
+
+export PATH="/usr/local/opt/php@8.3/bin:$PATH"
+export PATH="/usr/local/opt/php@8.3/sbin:$PATH"
+
+
+# Herd injected PHP binary.
+export PATH="/Users/thijs/Library/Application Support/Herd/bin/":$PATH
+
+export OPENAI_API_BASE="https://api.githubcopilot.com"
+export OLLAMA_API_BASE=http://127.0.0.1:11434
+
+# Load secrets from ~/.secrets (API keys, tokens, etc.)
+[[ -f ~/.secrets ]] && source ~/.secrets

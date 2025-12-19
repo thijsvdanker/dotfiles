@@ -1,0 +1,3 @@
+# Secrets - never commit actual secrets
+.secrets
+*/.secrets
