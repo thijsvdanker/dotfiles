@@ -17,7 +17,20 @@ return {
           port = 9003,
           pathMappings = {
             ["/var/www/html/regiweb-development"] = "${workspaceFolder}",
-            ["/var/www/html/regiweb-master"] = "${workspaceFolder}",
+          },
+          xdebugSettings = {
+            max_data = 9876,
+            max_children = 256,
+            max_depth = 3,
+          },
+        },
+        {
+          type = "php",
+          request = "launch",
+          name = "Listen for Xdebug for Extranet",
+          port = 9003,
+          pathMappings = {
+            ["/var/www/html/extranet-development"] = "${workspaceFolder}",
           },
           xdebugSettings = {
             max_data = 9876,

@@ -15,6 +15,7 @@ return function(opts)
     or {
       ["a"] = "app/**/*.php",
       ["l"] = "legacy/**/*.php",
+      ["t"] = "legacy/**/*.phtml",
       ["p"] = "*.php",
       ["b"] = "*.blade.php",
     }

@@ -15,6 +15,8 @@ alias regiservice='docker start 6d152db70915'
 alias ava='node_modules/.bin/ava'
 alias cypress='node_modules/.bin/cypress'
 alias ytdl='yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 $1'
+# alias to love
+alias love="/Applications/love.app/Contents/MacOS/love"
 
 alias a='php artisan'
 alias phpunitci='phpunit --testsuite="CI Tests"'

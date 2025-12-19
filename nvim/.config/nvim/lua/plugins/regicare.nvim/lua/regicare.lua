@@ -33,6 +33,9 @@ M.setup = function()
     desc = "Use the Scout DB",
   })
   vim.api.nvim_create_user_command("UseHavenDB", M.setHavenDB, {})
+
+  vim.api.nvim_create_user_command("EnableDebug", M.enableDebug, {})
+  vim.api.nvim_create_user_command("DisableDebug", M.disableDebug, {})
   --
 end
 
@@ -96,6 +99,16 @@ M.setHavenDB = function()
   vim.cmd("UpdateEnv DB_PASSWORD_INVENTORY RegiWeb123")
   vim.cmd("UpdateEnv DB_DATABASE devDemo")
   vim.cmd("DB redis://127.0.0.1:63790 FLUSHALL")
+end
+
+M.enableDebug = function()
+  vim.cmd("UpdateEnv APP_DEBUG true")
+  vim.cmd("UpdateEnv DEBUGBAR_ENABLED true")
+end
+
+M.disableDebug = function()
+  vim.cmd("UpdateEnv APP_DEBUG false")
+  vim.cmd("UpdateEnv DEBUGBAR_ENABLED false")
 end
 
 M.copyGitUrlDev = function()

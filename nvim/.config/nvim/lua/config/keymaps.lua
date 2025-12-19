@@ -135,6 +135,13 @@ vim.keymap.set(
 
 vim.keymap.set(
   "n",
+  "<leader>sab",
+  ":lua require('snacks').picker.grep({cwd='resources', glob='*.blade.php', title='Grep Blade Template'})<CR>",
+  { desc = "Grep Blade Template" }
+)
+
+vim.keymap.set(
+  "n",
   "<leader>flc",
   ":lua require('snacks').picker.files({cwd='legacy/application/modules', cmd='fd', args={'Controller.php'}, title='Find Controller'})<CR>",
   { desc = "Find Legacy Controller" }
@@ -145,6 +152,13 @@ vim.keymap.set(
   "<leader>flt",
   ":lua require('snacks').picker.files({cwd='legacy/application/modules', cmd='fd', ft='phtml', title='Find template'})<CR>",
   { desc = "Find Legacy Template" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>slt",
+  ":lua require('snacks').picker.grep({cwd='legacy/application/modules', glob='*.phtml', title='Grep template'})<CR>",
+  { desc = "Grep Legacy Template" }
 )
 
 vim.keymap.set(
@@ -197,12 +211,27 @@ vim.keymap.set("n", "<leader>dqu", function()
 end, { desc = "Usernames" })
 vim.keymap.set("n", "<leader>dqq", ":pclose<CR>", { desc = "close preview" })
 vim.keymap.set("n", "<leader>dqh", ":UseHavenDB<CR>", { desc = "[H]aven db" })
-vim.keymap.set("n", "<leader>dqs", ":UseScoutDB ", { desc = "[S]cout db" })
+vim.keymap.set("n", "<leader>dqs", ":UseScoutDB", { desc = "[S]cout db" })
+vim.keymap.set("n", "<leader>dqe", ":EnableDebug<CR>", { desc = "[E]nable debugging" })
+vim.keymap.set("n", "<leader>dqd", ":DisableDebug<CR>", { desc = "[D]isable debugging" })
 
 vim.keymap.set("n", "<leader>gu", "<cmd>CopyGitlabUrlDev<cr>", { desc = "Copy Gitlab [U]RL" })
 
 vim.keymap.set("n", "<leader>ood", "<cmd>:Obsidian today<CR>", { desc = "Today" })
 
+require("mini.surround").setup({
+  -- keep your other options here...
+  custom_surroundings = {
+    D = {
+      output = function()
+        return {
+          left = "<div>\n",
+          right = "\n</div>",
+        }
+      end,
+    },
+  },
+})
 -- DB: wip
 -- Function to get DB_DATABASE value from environment variables and execute a query
 -- local function query_db()

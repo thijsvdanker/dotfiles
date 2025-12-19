@@ -23,3 +23,6 @@ vim.g.lazyvim_php_lsp = "intelephense"
 vim.g.snacks_animate = false
 
 vim.g.lazyvim_picker = "snacks"
+
+-- Enable GitHub Copilot native LSP
+vim.lsp.enable("copilot")
